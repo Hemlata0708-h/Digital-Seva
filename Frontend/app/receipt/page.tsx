@@ -160,7 +160,7 @@ export default function GlobalDonationSuccessPage() {
       const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
       return () => clearTimeout(timer);
     } else if (redirectToDashboard && countdown === 0) {
-      router.push("/dashboard");
+      router.push("/user/dashboard");
     }
   }, [countdown, redirectToDashboard, router]); // Added router to dependency array for completeness
 
@@ -743,7 +743,7 @@ export default function GlobalDonationSuccessPage() {
                     </Link>
                   )}
                   <Link
-                    href="/dashboard"
+                    href="/user/dashboard"
                     className="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-orange-600 border border-transparent rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors"
                   >
                     Go to Dashboard
