@@ -13,7 +13,7 @@ export default function TempleList() {
     const fetchActiveTempleAdmins = async () => {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const response = await fetch(`http://localhost:5050/api/v1/templeAdmin/get-active-temple-admins?page=${page}&limit=${limit}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050"}/api/v1/templeAdmin/get-active-temple-admins?page=${page}&limit=${limit}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

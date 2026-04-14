@@ -77,7 +77,7 @@ const UserDashboard = () => {
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:5050/api/v1/transactions/total-donation-done", {
+        const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/total-donation-done", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -125,7 +125,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchVerifiedCount = async () => {
       try {
-        const response = await fetch("http://localhost:5050/api/v1/superAdminDashboard/count-temple-admins");
+        const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdminDashboard/count-temple-admins");
         const result = await response.json();
         setVerifiedCount(result.data.verifiedCount || 0);
       } catch (error) {
@@ -140,7 +140,7 @@ const UserDashboard = () => {
     const fetchMyDonations = async () => {
       const accessToken = sessionStorage.getItem("accessToken");
       try {
-        const response = await fetch("http://localhost:5050/api/v1/transactions/my-donations", {
+        const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/my-donations", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -164,7 +164,7 @@ const UserDashboard = () => {
     const fetchMonthlyDonations = async () => {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch("http://localhost:5050/api/v1/transactions/temple-donated-amount", {
+        const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/temple-donated-amount", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -966,7 +966,7 @@ const UserDashboard = () => {
                             <span>Change Password</span>
                           </button>
                           <LogoutButton
-                            logoutUrl="http://localhost:5050/api/v1/users/logout"
+                            logoutUrl=(process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/users/logout"
                             redirectTo="/"
                             onLogoutClick={() => setShowUserDropdown(false)} // close dropdown immediately on click
                           >

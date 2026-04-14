@@ -51,7 +51,7 @@ export default function TempleFundLogin() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5050/api/v1/users/login", {
+      const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

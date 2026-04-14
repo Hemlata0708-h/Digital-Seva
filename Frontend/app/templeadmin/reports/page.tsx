@@ -40,7 +40,7 @@ setLoading(true);
 
     try {
       
-      const res = await fetch(`http://localhost:5050/api/v1/transactions/generate-temple-report?type=${reportType}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050"}/api/v1/transactions/generate-temple-report?type=${reportType}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

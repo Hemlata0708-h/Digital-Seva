@@ -47,7 +47,7 @@ export default function TempleDetailsPage() {
     useEffect(() => {
         const fetchTemple = async () => {
             try {
-                const response = await fetch(`http://localhost:5050/api/v1/templeDetails/get-temple-by-slug/${slug}`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050"}/api/v1/templeDetails/get-temple-by-slug/${slug}`);
                 const result = await response.json();
                 if (response.ok) {
                     setTemple(result.data);

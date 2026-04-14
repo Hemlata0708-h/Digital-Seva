@@ -25,7 +25,7 @@ export default function TempleCards() {
     useEffect(() => {
         const fetchTemples = async () => {
             try {
-                const response = await fetch("http://localhost:5050/api/v1/templeDetails/public-temple-cards");
+                const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeDetails/public-temple-cards");
                 const result = await response.json();
 
                 if (!response.ok) {

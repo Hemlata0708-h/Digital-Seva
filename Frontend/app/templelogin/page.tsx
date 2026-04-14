@@ -37,7 +37,7 @@ export default function TempleAdminLogin() {
 
     try {
       const response = await fetch(
-        "http://localhost:5050/api/v1/templeAdmin/login-Temple-Admin",
+        (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeAdmin/login-Temple-Admin",
         {
           method: "POST",
           headers: {

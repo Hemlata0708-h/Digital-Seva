@@ -157,7 +157,7 @@ useEffect(() => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5050/api/v1/users/register", {
+      const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -197,7 +197,7 @@ useEffect(() => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5050/api/v1/users/verify-email", {
+      const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/users/verify-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -257,7 +257,7 @@ useEffect(() => {
   setIsLoading(true);
   try {
     const accessToken = sessionStorage.getItem("accessToken");
-    const response = await fetch("http://localhost:5050/api/v1/users/store-wallet-address", {
+    const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/users/store-wallet-address", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -295,7 +295,7 @@ useEffect(() => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5050/api/v1/users/resend-otp", {
+      const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/users/resend-otp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -41,7 +41,7 @@ const UnifiedTempleDonationPage = () => {
   const fetchActiveTempleAdmins = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5050/api/v1/templeAdmin/for-donation-active-temple",
+        (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeAdmin/for-donation-active-temple",
         {
           method: "GET",
           headers: {
@@ -67,7 +67,7 @@ const UnifiedTempleDonationPage = () => {
     const fetchRecent = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5050/api/v1/transactions/recent-donations"
+          (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/recent-donations"
         );
         const data = await res.json();
         setRecent(data.data);
@@ -146,7 +146,7 @@ const UnifiedTempleDonationPage = () => {
           throw new Error("Access token not found. Please log in again.");
         }
         const response = await fetch(
-          "http://localhost:5050/api/v1/transactions/donate-to-temple",
+          (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/donate-to-temple",
           {
             method: "POST",
             headers: {

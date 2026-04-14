@@ -19,10 +19,10 @@ export const apiClient = async (url: string, options: RequestInit = {}, role: "s
             // Determine the refresh endpoint based on the role
             const refreshEndpoint =
                 role === "superAdmin"
-                    ? "http://localhost:5050/api/v1/superAdmin/refresh-Access-Token"
+                    ? (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdmin/refresh-Access-Token"
                     : role === "templeAdmin"
-                    ? "http://localhost:5050/api/v1/templeAdmin/refresh-token"
-                    : "http://localhost:5050/api/v1/users/refresh-Token";
+                    ? (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeAdmin/refresh-token"
+                    : (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/users/refresh-Token";
 
             accessToken = await refreshAccessToken(refreshEndpoint);
 

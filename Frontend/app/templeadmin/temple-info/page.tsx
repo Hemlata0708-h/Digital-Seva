@@ -51,7 +51,7 @@ export default function TempleInfo() {
 
         // Fetch temple admin details
         const adminResponse = await fetch(
-          "http://localhost:5050/api/v1/templeAdmin/get-current-Temple-Admin",
+          (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeAdmin/get-current-Temple-Admin",
           {
             method: "GET",
             headers: {
@@ -79,7 +79,7 @@ export default function TempleInfo() {
 
         // Fetch temple details
         const templeResponse = await fetch(
-          "http://localhost:5050/api/v1/templeDetails/get-temple-by-admin",
+          (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeDetails/get-temple-by-admin",
           {
             method: "GET",
             headers: {
@@ -167,7 +167,7 @@ export default function TempleInfo() {
 
       const accessToken = sessionStorage.getItem("accessToken");
       const response = await fetch(
-        "http://localhost:5050/api/v1/templeDetails/create-temple",
+        (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeDetails/create-temple",
         {
           method: "POST",
           headers: {
@@ -232,7 +232,7 @@ export default function TempleInfo() {
       formData.append("coverImage", templeData.coverImage); // Add the cover image file
 
       const response = await fetch(
-        `http://localhost:5050/api/v1/templeDetails/update-cover-image/${templeData._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050"}/api/v1/templeDetails/update-cover-image/${templeData._id}`,
         {
           method: "PUT",
           headers: {
@@ -286,7 +286,7 @@ export default function TempleInfo() {
       });
 
       const response = await fetch(
-        `http://localhost:5050/api/v1/templeDetails/add-gallery-images/${templeData._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050"}/api/v1/templeDetails/add-gallery-images/${templeData._id}`,
         {
           method: "PUT",
           headers: {
@@ -329,7 +329,7 @@ export default function TempleInfo() {
       const accessToken = sessionStorage.getItem("accessToken");
 
       const response = await fetch(
-        `http://localhost:5050/api/v1/templeDetails/delete-gallery-image/${templeData._id}`,
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050"}/api/v1/templeDetails/delete-gallery-image/${templeData._id}`,
         {
           method: "DELETE",
           headers: {

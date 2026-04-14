@@ -34,7 +34,7 @@ export default function Donations() {
       try {
         const accessToken = sessionStorage.getItem("accessToken");
 
-        const res = await fetch("http://localhost:5050/api/v1/transactions/temple-donations", {
+        const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/temple-donations", {
           headers: {
             "Authorization": `Bearer ${accessToken}`,
             "Content-Type": "application/json"

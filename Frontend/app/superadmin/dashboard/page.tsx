@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { io } from 'socket.io-client';
 
-const socket = io("http://localhost:5050")
+const socket = io((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "")
 
 export default function SuperAdminDashboard() {
   const [userCount, setUserCount] = React.useState(0);
@@ -24,7 +24,7 @@ export default function SuperAdminDashboard() {
   useEffect(() => {
     const fetchUserCount = async () => {
       try {
-        const userResponse = await fetch("http://localhost:5050/api/v1/superAdminDashboard/count-users", {
+        const userResponse = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdminDashboard/count-users", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -39,7 +39,7 @@ export default function SuperAdminDashboard() {
           console.error("Failed to fetch user count:", userResult.message);
         }
 
-        const templeResponse = await fetch("http://localhost:5050/api/v1/superAdminDashboard/count-temple-admins", {
+        const templeResponse = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdminDashboard/count-temple-admins", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

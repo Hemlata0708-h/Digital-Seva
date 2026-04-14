@@ -281,7 +281,7 @@ export default function Navbar() {
                       <span>Change Password</span>
                     </button>
                     <LogoutButton
-                      logoutUrl="http://localhost:5050/api/v1/superAdmin/logout-superAdmin"
+                      logoutUrl=(process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdmin/logout-superAdmin"
                       redirectTo="/superadminlogin"
                       onLogoutClick={() => setShowUserDropdown(false)} // close dropdown immediately on click
                     >

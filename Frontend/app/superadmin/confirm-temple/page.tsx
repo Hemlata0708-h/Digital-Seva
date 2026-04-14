@@ -19,7 +19,7 @@ import {
 import { toast } from "react-toastify";
 import AuthWrapper from "@/app/components/AuthWrapper";
 
-const socket = io("http://localhost:5050");
+const socket = io((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "");
 
 export default function ConfirmPage() {
   const [expandedMetaMaskCard, setExpandedMetaMaskCard] = useState(null);
@@ -69,7 +69,7 @@ export default function ConfirmPage() {
       const accessToken = sessionStorage.getItem("accessToken");
 
       const response = await fetch(
-        "http://localhost:5050/api/v1/superAdmin/get-pending-confirmations",
+        (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdmin/get-pending-confirmations",
         {
           method: "GET",
           headers: {
@@ -224,7 +224,7 @@ export default function ConfirmPage() {
         const accessToken = sessionStorage.getItem("accessToken");
 
         const response = await fetch(
-          "http://localhost:5050/api/v1/superAdmin/confirm-temple-admin-registration",
+          (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdmin/confirm-temple-admin-registration",
           {
             method: "POST",
             headers: {
@@ -266,7 +266,7 @@ export default function ConfirmPage() {
       console.log("Access Token:", accessToken);
 
       const response = await fetch(
-        "http://localhost:5050/api/v1/superAdmin/reject-temple-admin-registration",
+        (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdmin/reject-temple-admin-registration",
         {
           method: "POST",
           headers: {

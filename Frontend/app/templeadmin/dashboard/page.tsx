@@ -66,7 +66,7 @@ export default function Dashboard() {
       try {
         const token = sessionStorage.getItem("accessToken");
 
-        const res = await fetch("http://localhost:5050/api/v1/transactions/recent-temple-donations", {
+        const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/recent-temple-donations", {
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
@@ -88,7 +88,7 @@ export default function Dashboard() {
     const fetchTrends = async () => {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch("http://localhost:5050/api/v1/transactions/temple-monthly-donations", {
+        const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/temple-monthly-donations", {
           headers: {
             "Authorization": `Bearer ${token}`,
           },
@@ -107,7 +107,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchUserCount = async () => {
       try {
-        const res = await fetch("http://localhost:5050/api/v1/superAdminDashboard/count-users");
+        const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdminDashboard/count-users");
         const result = await res.json();
         setUserCount(result.data.userCount || 0);
       } catch (error) {
@@ -122,7 +122,7 @@ export default function Dashboard() {
     const fetchTotalDonations = async () => {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch("http://localhost:5050/api/v1/transactions/temple-total-donations", {
+        const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/temple-total-donations", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -28,7 +28,7 @@ export default function ReceiptPage() {
       try {
         setLoading(true);
 
-        const API_BASE_URL = "http://localhost:5050/api/v1";
+        const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1";
 
         const res = await axios.get(
           `${API_BASE_URL}/transactions/receipt?txHash=${txHash}`,

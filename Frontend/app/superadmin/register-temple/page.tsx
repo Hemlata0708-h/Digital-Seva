@@ -27,7 +27,7 @@ const RegisterTemplePage = () => {
     const token = sessionStorage.getItem("accessToken");
 
     try {
-      const res = await apiClient("http://localhost:5050/api/v1/templeAdmin/register-Temple-Admin", {
+      const res = await apiClient((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeAdmin/register-Temple-Admin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

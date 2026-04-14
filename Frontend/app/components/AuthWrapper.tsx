@@ -9,10 +9,10 @@ const AuthWrapper = ({ children, role }: { children: React.ReactNode; role: "sup
             try {
                 const endpoint =
                     role === "superAdmin"
-                        ? "http://localhost:5050/api/v1/superAdmin/refresh-Access-Token"
+                        ? (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdmin/refresh-Access-Token"
                         : role === "templeAdmin"
-                        ? "http://localhost:5050/api/v1/templeAdmin/refresh-token"
-                        : "http://localhost:5050/api/v1/users/refresh-Token";
+                        ? (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeAdmin/refresh-token"
+                        : (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/users/refresh-Token";
                 await refreshAccessToken(endpoint);
             } catch (error) {
                 console.error("Failed to refresh access token:", error);

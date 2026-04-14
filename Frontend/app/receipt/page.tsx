@@ -59,7 +59,7 @@ export default function GlobalDonationSuccessPage() {
         }
 
         const response = await axios.get(
-          `http://localhost:5050/api/v1/transactions/receipt?txHash=${txHash}`,
+          `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050"}/api/v1/transactions/receipt?txHash=${txHash}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
