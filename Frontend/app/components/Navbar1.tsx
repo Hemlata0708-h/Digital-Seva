@@ -281,8 +281,9 @@ export default function Navbar() {
                       <span>Change Password</span>
                     </button>
                     <LogoutButton
-                      logoutUrl=(process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdmin/logout-superAdmin"
-                      redirectTo="/superadminlogin"
+                   logoutUrl={(process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeAdmin/logout-Temple-Admin"}
+                  redirectTo="/superadminlogin"
+
                       onLogoutClick={() => setShowUserDropdown(false)} // close dropdown immediately on click
                     >
                       <div className="w-full flex items-center space-x-3 px-3 py-2 text-left text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer">

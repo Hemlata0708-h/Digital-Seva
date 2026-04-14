@@ -168,7 +168,7 @@ export default function Navbar() {
               >
                 <Wallet className="w-4 h-4" />
                 <span>{`Connected: ${account.slice(0, 6)}...${account.slice(
-                  -4
+                  -4,
                 )}`}</span>
               </motion.button>
             )}
@@ -209,15 +209,17 @@ export default function Navbar() {
                       <motion.div
                         key={notification.id}
                         whileHover={{ backgroundColor: "#f9fafb" }}
-                        className={`px-4 py-3 border-b border-gray-50 cursor-pointer ${notification.unread ? "bg-orange-50" : ""
-                          }`}
+                        className={`px-4 py-3 border-b border-gray-50 cursor-pointer ${
+                          notification.unread ? "bg-orange-50" : ""
+                        }`}
                       >
                         <div className="flex items-start space-x-3">
                           <div
-                            className={`w-2 h-2 rounded-full mt-2 ${notification.unread
-                              ? "bg-orange-500"
-                              : "bg-gray-300"
-                              }`}
+                            className={`w-2 h-2 rounded-full mt-2 ${
+                              notification.unread
+                                ? "bg-orange-500"
+                                : "bg-gray-300"
+                            }`}
                           />
                           <div className="flex-1">
                             <h4 className="font-medium text-gray-800 text-sm">
@@ -274,7 +276,11 @@ export default function Navbar() {
                       <span>Change Password</span>
                     </button>
                     <LogoutButton
-                      logoutUrl=(process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/templeAdmin/logout-Temple-Admin"
+                      logoutUrl={
+                        (process.env.NEXT_PUBLIC_API_URL ||
+                          "http://localhost:5050") +
+                        "/api/v1/templeAdmin/logout-Temple-Admin"
+                      }
                       redirectTo="/templelogin"
                       onLogoutClick={() => setShowUserDropdown(false)} // close dropdown immediately on click
                     >

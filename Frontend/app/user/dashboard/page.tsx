@@ -5,11 +5,20 @@ import { useMetamask } from "@/app/hooks/useMetamask";
 import { useRouter } from "next/navigation";
 import LogoutButton from "@/app/components/LogoutButton";
 import AuthWrapper from "@/app/components/AuthWrapper";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
-  PieChart, Pie, Cell, Legend
-} from 'recharts';
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+} from "recharts";
 
 import {
   Home,
@@ -41,8 +50,8 @@ import {
   ExternalLink,
   XCircle,
   FileText,
-  Shield
-} from 'lucide-react';
+  Shield,
+} from "lucide-react";
 
 const UserDashboard = () => {
   const router = useRouter();
@@ -77,11 +86,15 @@ const UserDashboard = () => {
       if (!token) return;
 
       try {
-        const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/total-donation-done", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const res = await fetch(
+          (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") +
+            "/api/v1/transactions/total-donation-done",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         const data = await res.json();
         if (data.success) {
@@ -98,7 +111,9 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchMaticToINR = async () => {
       try {
-        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=inr");
+        const res = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=inr",
+        );
         const data = await res.json();
         setMaticToInr(data["matic-network"]?.inr || 0);
       } catch (error) {
@@ -125,7 +140,10 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchVerifiedCount = async () => {
       try {
-        const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/superAdminDashboard/count-temple-admins");
+        const response = await fetch(
+          (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") +
+            "/api/v1/superAdminDashboard/count-temple-admins",
+        );
         const result = await response.json();
         setVerifiedCount(result.data.verifiedCount || 0);
       } catch (error) {
@@ -140,11 +158,15 @@ const UserDashboard = () => {
     const fetchMyDonations = async () => {
       const accessToken = sessionStorage.getItem("accessToken");
       try {
-        const response = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/my-donations", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
+        const response = await fetch(
+          (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") +
+            "/api/v1/transactions/my-donations",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           },
-        });
+        );
 
         const result = await response.json();
         if (response.ok) {
@@ -164,11 +186,15 @@ const UserDashboard = () => {
     const fetchMonthlyDonations = async () => {
       try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch((process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/transactions/temple-donated-amount", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const res = await fetch(
+          (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") +
+            "/api/v1/transactions/temple-donated-amount",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         const data = await res.json();
         setMonthlyDonationStats(data.data?.totalMonthlyMATIC || 0);
@@ -179,8 +205,6 @@ const UserDashboard = () => {
 
     fetchMonthlyDonations();
   }, []);
-
-
 
   const fadeIn = {
     initial: { opacity: 0, y: -10 },
@@ -219,10 +243,11 @@ const UserDashboard = () => {
   const MenuItem = ({ icon: Icon, label, id, active, onClick }) => (
     <button
       onClick={() => onClick(id)}
-      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all cursor-pointer ${active
-        ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
-        : "text-gray-600 hover:bg-orange-50 hover:text-orange-600"
-        }`}
+      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all cursor-pointer ${
+        active
+          ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
+          : "text-gray-600 hover:bg-orange-50 hover:text-orange-600"
+      }`}
     >
       <Icon size={20} />
       <span className="font-medium">{label}</span>
@@ -239,8 +264,9 @@ const UserDashboard = () => {
         </div>
         {change && (
           <span
-            className={`text-sm font-semibold ${change > 0 ? "text-green-600" : "text-red-600"
-              }`}
+            className={`text-sm font-semibold ${
+              change > 0 ? "text-green-600" : "text-red-600"
+            }`}
           >
             {change > 0 ? "+" : ""}
             {change}%
@@ -256,7 +282,9 @@ const UserDashboard = () => {
     <div className="space-y-6">
       {/* Welcome Section */}
       <div className="bg-gradient-to-r from-orange-500 to-red-500 p-8 rounded-2xl text-white">
-        <h1 className="text-3xl font-bold mb-2">Welcome back, {userData?.name || "Devotee"}! 🙏</h1>
+        <h1 className="text-3xl font-bold mb-2">
+          Welcome back, {userData?.name || "Devotee"}! 🙏
+        </h1>
         <p className="text-orange-100 text-lg">
           Your spiritual journey continues with transparent donations
         </p>
@@ -289,7 +317,6 @@ const UserDashboard = () => {
               ? `${monthlyDonationStats.toLocaleString()} MATIC (₹${(monthlyDonationStats * maticToInr).toLocaleString()})`
               : "Loading..."
           }
-
           change={8}
           color="pink"
         />
@@ -306,7 +333,10 @@ const UserDashboard = () => {
       <div className="bg-white p-6 rounded-2xl shadow-lg">
         <h2 className="text-xl font-bold mb-4 text-gray-800">Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <button className="flex flex-col items-center cursor-pointer p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-all" onClick={() => router.push('/user/donate')}>
+          <button
+            className="flex flex-col items-center cursor-pointer p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-all"
+            onClick={() => router.push("/user/donate")}
+          >
             <Plus className="text-orange-600 mb-2" size={24} />
             <span className="text-sm font-medium text-gray-700">
               New Donation
@@ -337,7 +367,9 @@ const UserDashboard = () => {
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Recent Donations */}
         <div className="bg-white p-6 rounded-2xl shadow-lg">
-          <h2 className="text-xl font-bold mb-4 text-gray-800">Recent Donations</h2>
+          <h2 className="text-xl font-bold mb-4 text-gray-800">
+            Recent Donations
+          </h2>
 
           {recentDonations && recentDonations.length > 0 ? (
             <>
@@ -357,7 +389,9 @@ const UserDashboard = () => {
                           <p className="font-semibold text-gray-800 text-sm">
                             {donation.receiver?.templeName || "Temple N/A"}
                           </p>
-                          <p className="text-gray-600 text-xs">{donation.purpose}</p>
+                          <p className="text-gray-600 text-xs">
+                            {donation.purpose}
+                          </p>
                         </div>
                       </div>
 
@@ -367,12 +401,13 @@ const UserDashboard = () => {
                           {donation.amount} MATIC
                         </p>
                         <span
-                          className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${donation.status === "confirmed"
-                            ? "bg-green-100 text-green-800"
-                            : donation.status === "pending"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-red-100 text-red-800"
-                            }`}
+                          className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-1 ${
+                            donation.status === "confirmed"
+                              ? "bg-green-100 text-green-800"
+                              : donation.status === "pending"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-red-100 text-red-800"
+                          }`}
                         >
                           {donation.status === "confirmed" ? (
                             <CheckCircle size={12} className="mr-1" />
@@ -422,10 +457,11 @@ const UserDashboard = () => {
                   <p className="text-sm text-gray-600">{report.temple}</p>
                 </div>
                 <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${report.status === "completed"
-                    ? "bg-green-100 text-green-800"
-                    : "bg-blue-100 text-blue-800"
-                    }`}
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    report.status === "completed"
+                      ? "bg-green-100 text-green-800"
+                      : "bg-blue-100 text-blue-800"
+                  }`}
                 >
                   {report.status}
                 </span>
@@ -483,7 +519,9 @@ const UserDashboard = () => {
 
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-800">Donation History</h2>
+          <h2 className="text-lg font-semibold text-gray-800">
+            Donation History
+          </h2>
         </div>
 
         {recentDonations && recentDonations.length > 0 ? (
@@ -517,12 +555,13 @@ const UserDashboard = () => {
                     </p>
                     <p className="text-sm text-gray-600">{donation.date}</p>
                     <span
-                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-2 ${donation.status === "confirmed"
-                        ? "bg-green-100 text-green-800"
-                        : donation.status === "pending"
-                          ? "bg-yellow-100 text-yellow-800"
-                          : "bg-red-100 text-red-800"
-                        }`}
+                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium mt-2 ${
+                        donation.status === "confirmed"
+                          ? "bg-green-100 text-green-800"
+                          : donation.status === "pending"
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-red-100 text-red-800"
+                      }`}
                     >
                       {donation.status === "confirmed" ? (
                         <CheckCircle size={12} className="mr-1" />
@@ -537,10 +576,14 @@ const UserDashboard = () => {
                 </div>
                 <div className="mt-4 flex justify-between items-center">
                   <p className="text-xs text-gray-500">
-                    Tx Hash: {donation.txHash.slice(0, 6)}...{donation.txHash.slice(-4)}
+                    Tx Hash: {donation.txHash.slice(0, 6)}...
+                    {donation.txHash.slice(-4)}
                     <button
                       onClick={() =>
-                        window.open(`https://www.oklink.com/amoy/tx/${donation.txHash}`, "_blank")
+                        window.open(
+                          `https://www.oklink.com/amoy/tx/${donation.txHash}`,
+                          "_blank",
+                        )
                       }
                       className="text-orange-500 hover:text-orange-600 transition"
                       title="View on Amoy Explorer"
@@ -555,7 +598,8 @@ const UserDashboard = () => {
                         setSelectedDonation(donation);
                         setShowDetailsModal(true);
                       }}
-                      className="flex items-center text-white bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded text-sm font-medium transition">
+                      className="flex items-center text-white bg-orange-500 hover:bg-orange-600 px-3 py-1 rounded text-sm font-medium transition"
+                    >
                       <Eye size={14} className="mr-1" /> View Details
                     </button>
 
@@ -576,49 +620,77 @@ const UserDashboard = () => {
                   >
                     ✕
                   </button>
-                  <h2 className="text-xl font-bold mb-4 text-gray-800">Donation Details</h2>
+                  <h2 className="text-xl font-bold mb-4 text-gray-800">
+                    Donation Details
+                  </h2>
                   <div className="space-y-3 text-sm text-gray-700">
-                    <p><strong>Temple Name:</strong> {selectedDonation.receiver?.templeName || "N/A"}</p>
-                    <p><strong>Location:</strong> {selectedDonation.receiver?.templeLocation || "N/A"}</p>
-                    <p><strong>Purpose:</strong> {selectedDonation.purpose}</p>
-                    <p><strong>Amount:</strong> {selectedDonation.amount} MATIC</p>
-                    <p><strong>Date:</strong> {new Date(selectedDonation.createdAt).toLocaleString() || "N/A"}</p>
-                    <p><strong>Status:</strong> {selectedDonation.status}</p>
-                    <p><strong>Transaction Hash:</strong> {selectedDonation.txHash}</p>
-                    <p><strong>Sender Wallet: </strong>{selectedDonation.sender?.walletAddress || "N/A"}</p>
+                    <p>
+                      <strong>Temple Name:</strong>{" "}
+                      {selectedDonation.receiver?.templeName || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Location:</strong>{" "}
+                      {selectedDonation.receiver?.templeLocation || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Purpose:</strong> {selectedDonation.purpose}
+                    </p>
+                    <p>
+                      <strong>Amount:</strong> {selectedDonation.amount} MATIC
+                    </p>
+                    <p>
+                      <strong>Date:</strong>{" "}
+                      {new Date(selectedDonation.createdAt).toLocaleString() ||
+                        "N/A"}
+                    </p>
+                    <p>
+                      <strong>Status:</strong> {selectedDonation.status}
+                    </p>
+                    <p>
+                      <strong>Transaction Hash:</strong>{" "}
+                      {selectedDonation.txHash}
+                    </p>
+                    <p>
+                      <strong>Sender Wallet: </strong>
+                      {selectedDonation.sender?.walletAddress || "N/A"}
+                    </p>
                     {/* Add more fields if needed */}
                   </div>
                 </div>
               </div>
             )}
-
           </div>
         ) : (
           <div className="p-10 text-center text-gray-500">
             <HandHeart className="mx-auto text-orange-500 mb-4" size={40} />
             <p className="text-lg font-medium">No donations found.</p>
-            <p className="text-sm text-gray-400">You haven’t made any donations yet.</p>
+            <p className="text-sm text-gray-400">
+              You haven’t made any donations yet.
+            </p>
           </div>
         )}
       </div>
     </div>
   );
 
-
   const renderAnalytics = () => {
     // Analytics Processing
     const processDonationTrends = () => {
       if (!recentDonations || recentDonations.length === 0) return [];
       const grouped = recentDonations.reduce((acc: any, curr: any) => {
-        const dateStr = new Date(curr.createdAt || curr.date).toLocaleDateString([], { month: 'short', day: 'numeric' });
+        const dateStr = new Date(
+          curr.createdAt || curr.date,
+        ).toLocaleDateString([], { month: "short", day: "numeric" });
         acc[dateStr] = (acc[dateStr] || 0) + Number(curr.amount);
         return acc;
       }, {});
-      return Object.entries(grouped)
-        .map(([date, amount]) => ({ date, amount }))
-        // Reverse array if recentDonations are descending (newest first). 
-        // We want chronological for charts (oldest left).
-        .reverse(); 
+      return (
+        Object.entries(grouped)
+          .map(([date, amount]) => ({ date, amount }))
+          // Reverse array if recentDonations are descending (newest first).
+          // We want chronological for charts (oldest left).
+          .reverse()
+      );
     };
 
     const processTempleDistribution = () => {
@@ -633,24 +705,68 @@ const UserDashboard = () => {
 
     const trendsData = processDonationTrends();
     const distributionData = processTempleDistribution();
-    const PIE_COLORS = ['#f97316', '#ef4444', '#eab308', '#3b82f6', '#8b5cf6', '#ec4899'];
+    const PIE_COLORS = [
+      "#f97316",
+      "#ef4444",
+      "#eab308",
+      "#3b82f6",
+      "#8b5cf6",
+      "#ec4899",
+    ];
 
     return (
       <div className="space-y-6">
         <h1 className="text-2xl font-bold text-gray-800">Analytics & Impact</h1>
-  
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white p-6 rounded-2xl shadow-lg">
-            <h2 className="text-lg font-semibold mb-4 text-gray-800">Donation Trends</h2>
+            <h2 className="text-lg font-semibold mb-4 text-gray-800">
+              Donation Trends
+            </h2>
             <div className="h-72 w-full pt-4">
               {trendsData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart data={trendsData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                    <XAxis dataKey="date" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(val) => `${val} M`} />
-                    <RechartsTooltip cursor={{stroke: '#f97316', strokeWidth: 1, strokeDasharray: '5 5'}} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
-                    <Line type="monotone" dataKey="amount" name="Donated MATIC" stroke="#f97316" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="#f1f5f9"
+                      vertical={false}
+                    />
+                    <XAxis
+                      dataKey="date"
+                      stroke="#94a3b8"
+                      fontSize={12}
+                      tickLine={false}
+                      axisLine={false}
+                    />
+                    <YAxis
+                      stroke="#94a3b8"
+                      fontSize={12}
+                      tickLine={false}
+                      axisLine={false}
+                      tickFormatter={(val) => `${val} M`}
+                    />
+                    <RechartsTooltip
+                      cursor={{
+                        stroke: "#f97316",
+                        strokeWidth: 1,
+                        strokeDasharray: "5 5",
+                      }}
+                      contentStyle={{
+                        borderRadius: "12px",
+                        border: "none",
+                        boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+                      }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="amount"
+                      name="Donated MATIC"
+                      stroke="#f97316"
+                      strokeWidth={3}
+                      dot={{ r: 4, strokeWidth: 2 }}
+                      activeDot={{ r: 6 }}
+                    />
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
@@ -660,20 +776,45 @@ const UserDashboard = () => {
               )}
             </div>
           </div>
-  
+
           <div className="bg-white p-6 rounded-2xl shadow-lg">
-            <h2 className="text-lg font-semibold mb-4 text-gray-800">Temple Distribution</h2>
+            <h2 className="text-lg font-semibold mb-4 text-gray-800">
+              Temple Distribution
+            </h2>
             <div className="h-72 w-full">
               {distributionData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={250}>
                   <PieChart>
-                    <Pie data={distributionData} cx="50%" cy="45%" innerRadius={60} outerRadius={85} paddingAngle={5} dataKey="value">
+                    <Pie
+                      data={distributionData}
+                      cx="50%"
+                      cy="45%"
+                      innerRadius={60}
+                      outerRadius={85}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
                       {distributionData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={PIE_COLORS[index % PIE_COLORS.length]}
+                        />
                       ))}
                     </Pie>
-                    <RechartsTooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} formatter={(value: any) => [`${value} MATIC`, 'Amount']} />
-                    <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+                    <RechartsTooltip
+                      contentStyle={{
+                        borderRadius: "12px",
+                        border: "none",
+                        boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+                      }}
+                      formatter={(value: any) => [`${value} MATIC`, "Amount"]}
+                    />
+                    <Legend
+                      verticalAlign="bottom"
+                      height={36}
+                      iconType="circle"
+                      wrapperStyle={{ fontSize: "12px", paddingTop: "10px" }}
+                    />
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
@@ -684,9 +825,11 @@ const UserDashboard = () => {
             </div>
           </div>
         </div>
-  
+
         <div className="bg-white p-6 rounded-2xl shadow-lg">
-          <h2 className="text-lg font-semibold mb-4 text-gray-800">Impact Summary</h2>
+          <h2 className="text-lg font-semibold mb-4 text-gray-800">
+            Impact Summary
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center p-4 bg-green-50 rounded-lg">
               <div className="text-3xl font-bold text-green-600">2,500+</div>
@@ -710,8 +853,12 @@ const UserDashboard = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">Transaction Ledger</h1>
-          <p className="text-gray-500 text-sm mt-1">Immutable record of all your blockchain interactions</p>
+          <h1 className="text-2xl font-bold text-gray-800">
+            Transaction Ledger
+          </h1>
+          <p className="text-gray-500 text-sm mt-1">
+            Immutable record of all your blockchain interactions
+          </p>
         </div>
         <button className="flex items-center text-sm bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-50 transition cursor-pointer">
           <Download size={16} className="mr-2" />
@@ -735,21 +882,29 @@ const UserDashboard = () => {
             <tbody className="divide-y divide-gray-100">
               {recentDonations && recentDonations.length > 0 ? (
                 recentDonations.map((tx: any, idx: number) => (
-                  <tr key={tx.txHash || idx} className="hover:bg-orange-50/30 transition-colors">
+                  <tr
+                    key={tx.txHash || idx}
+                    className="hover:bg-orange-50/30 transition-colors"
+                  >
                     <td className="px-6 py-4 text-sm font-mono text-orange-600">
-                      <a 
-                        href={`https://www.oklink.com/amoy/tx/${tx.txHash}`} 
-                        target="_blank" 
-                        rel="noreferrer" 
+                      <a
+                        href={`https://www.oklink.com/amoy/tx/${tx.txHash}`}
+                        target="_blank"
+                        rel="noreferrer"
                         className="flex items-center hover:underline"
                         title="View Explorer"
                       >
-                        {tx.txHash ? `${tx.txHash.substring(0, 8)}...${tx.txHash.substring(tx.txHash.length - 6)}` : "N/A"}
+                        {tx.txHash
+                          ? `${tx.txHash.substring(0, 8)}...${tx.txHash.substring(tx.txHash.length - 6)}`
+                          : "N/A"}
                         <ExternalLink size={12} className="ml-1 opacity-70" />
                       </a>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
-                      {new Date(tx.createdAt || Date.now()).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}
+                      {new Date(tx.createdAt || Date.now()).toLocaleString([], {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                      })}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-800 font-medium">
                       {tx.receiver?.templeName || "Unknown Contract"}
@@ -758,23 +913,35 @@ const UserDashboard = () => {
                       {tx.amount} MATIC
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-500 text-right">
-                      {tx.transactionFee ? `${tx.transactionFee} MATIC` : "< 0.001 MATIC"}
+                      {tx.transactionFee
+                        ? `${tx.transactionFee} MATIC`
+                        : "< 0.001 MATIC"}
                     </td>
                     <td className="px-6 py-4 text-center">
-                      <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ${
-                        tx.status === "confirmed" ? "bg-green-100 text-green-700" :
-                        tx.status === "pending" ? "bg-yellow-100 text-yellow-700" :
-                        "bg-red-100 text-red-700"
-                      }`}>
-                        {tx.status?.toUpperCase() || 'UNKNOWN'}
+                      <span
+                        className={`inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ${
+                          tx.status === "confirmed"
+                            ? "bg-green-100 text-green-700"
+                            : tx.status === "pending"
+                              ? "bg-yellow-100 text-yellow-700"
+                              : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {tx.status?.toUpperCase() || "UNKNOWN"}
                       </span>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="px-6 py-16 text-center text-gray-500">
-                    <FileText size={32} className="mx-auto mb-3 text-gray-300" />
+                  <td
+                    colSpan={6}
+                    className="px-6 py-16 text-center text-gray-500"
+                  >
+                    <FileText
+                      size={32}
+                      className="mx-auto mb-3 text-gray-300"
+                    />
                     No transaction history found on the ledger.
                   </td>
                 </tr>
@@ -793,7 +960,10 @@ const UserDashboard = () => {
           {/* Sidebar */}
           <div className="w-64 bg-white shadow-lg min-h-screen">
             <div className="p-6 pt-2">
-              <div className="flex items-center space-x-2 mb-8 cursor-pointer" onClick={() => router.push("/")}>
+              <div
+                className="flex items-center space-x-2 mb-8 cursor-pointer"
+                onClick={() => router.push("/")}
+              >
                 {/*Logo*/}
 
                 <div className="relative w-12 h-12">
@@ -838,7 +1008,7 @@ const UserDashboard = () => {
                   icon={Home}
                   label="Dashboard"
                   id="dashboard"
-                  active={activeTab === 'dashboard'}
+                  active={activeTab === "dashboard"}
                   onClick={setActiveTab}
                 />
                 <MenuItem
@@ -859,7 +1029,6 @@ const UserDashboard = () => {
                   icon={History}
                   label="History"
                   id="history"
-
                   active={activeTab === "history"}
                   onClick={setActiveTab}
                 />
@@ -867,7 +1036,6 @@ const UserDashboard = () => {
                   icon={Settings}
                   label="Settings"
                   id="settings"
-
                   active={activeTab === "settings"}
                   onClick={setActiveTab}
                 />
@@ -924,7 +1092,7 @@ const UserDashboard = () => {
                       <Wallet className="w-4 h-4" />
                       <span>{`Connected: ${account.slice(
                         0,
-                        6
+                        6,
                       )}...${account.slice(-4)}`}</span>
                     </motion.button>
                   )}
@@ -966,8 +1134,12 @@ const UserDashboard = () => {
                             <span>Change Password</span>
                           </button>
                           <LogoutButton
-                            logoutUrl=(process.env.NEXT_PUBLIC_API_URL || "http://localhost:5050") + "/api/v1/users/logout"
-                            redirectTo="/"
+                            logoutUrl={
+                              (process.env.NEXT_PUBLIC_API_URL ||
+                                "http://localhost:5050") +
+                              "/api/v1/users/logout"
+                            }
+                            redirectTo="/login"
                             onLogoutClick={() => setShowUserDropdown(false)} // close dropdown immediately on click
                           >
                             <div className="w-full flex items-center space-x-3 px-3 py-2 text-left text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer">
@@ -992,22 +1164,32 @@ const UserDashboard = () => {
               {activeTab === "settings" && (
                 <div className="space-y-6">
                   <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Account Settings</h1>
-                    <p className="text-gray-500 text-sm mt-1">Manage your notification and profile preferences</p>
+                    <h1 className="text-2xl font-bold text-gray-800">
+                      Account Settings
+                    </h1>
+                    <p className="text-gray-500 text-sm mt-1">
+                      Manage your notification and profile preferences
+                    </p>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left Column: Profile Card */}
                     <div className="lg:col-span-1 space-y-6">
                       <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center">
                         <div className="w-24 h-24 bg-gradient-to-r from-orange-400 to-red-400 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-md mb-4">
-                          {userData?.name ? userData.name.charAt(0).toUpperCase() : "U"}
+                          {userData?.name
+                            ? userData.name.charAt(0).toUpperCase()
+                            : "U"}
                         </div>
-                        <h2 className="text-xl font-semibold text-gray-800">{userData?.name || "Devotee User"}</h2>
-                        <p className="text-gray-500 text-sm mb-4">{userData?.email || "devotee@example.com"}</p>
-                        
+                        <h2 className="text-xl font-semibold text-gray-800">
+                          {userData?.name || "Devotee User"}
+                        </h2>
+                        <p className="text-gray-500 text-sm mb-4">
+                          {userData?.email || "devotee@example.com"}
+                        </p>
+
                         <div className="w-full pt-4 border-t border-gray-100">
-                          <button 
+                          <button
                             onClick={handleChangePassword}
                             className="w-full flex items-center justify-center space-x-2 text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 py-2.5 rounded-lg transition-colors border border-gray-200"
                           >
@@ -1023,30 +1205,49 @@ const UserDashboard = () => {
                       <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
                         <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                           <h3 className="font-semibold text-gray-800 flex items-center">
-                            <Bell className="w-5 h-5 mr-2 text-orange-500" /> Notifications
+                            <Bell className="w-5 h-5 mr-2 text-orange-500" />{" "}
+                            Notifications
                           </h3>
                         </div>
                         <div className="p-6 space-y-4">
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="font-medium text-gray-800">Email Donations Receipt</p>
-                              <p className="text-sm text-gray-500">Automatically receive tax receipts immediately after confirming a donation.</p>
+                              <p className="font-medium text-gray-800">
+                                Email Donations Receipt
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                Automatically receive tax receipts immediately
+                                after confirming a donation.
+                              </p>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
-                              <input type="checkbox" className="sr-only peer" defaultChecked />
+                              <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                defaultChecked
+                              />
                               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
                             </label>
                           </div>
-                          
+
                           <hr className="border-gray-100" />
-                          
+
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="font-medium text-gray-800">Temple Updates</p>
-                              <p className="text-sm text-gray-500">Receive periodic updates about how your donations are making an impact.</p>
+                              <p className="font-medium text-gray-800">
+                                Temple Updates
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                Receive periodic updates about how your
+                                donations are making an impact.
+                              </p>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
-                              <input type="checkbox" className="sr-only peer" defaultChecked />
+                              <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                defaultChecked
+                              />
                               <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
                             </label>
                           </div>
@@ -1056,14 +1257,20 @@ const UserDashboard = () => {
                       <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
                         <div className="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                           <h3 className="font-semibold text-gray-800 flex items-center">
-                            <Shield className="w-5 h-5 mr-2 text-orange-500" /> Privacy & Security
+                            <Shield className="w-5 h-5 mr-2 text-orange-500" />{" "}
+                            Privacy & Security
                           </h3>
                         </div>
                         <div className="p-6 space-y-4">
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="font-medium text-gray-800">Anonymous Donations</p>
-                              <p className="text-sm text-gray-500">Hide your profile details from public ledger views. Only transaction hashes will be visible.</p>
+                              <p className="font-medium text-gray-800">
+                                Anonymous Donations
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                Hide your profile details from public ledger
+                                views. Only transaction hashes will be visible.
+                              </p>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
                               <input type="checkbox" className="sr-only peer" />
@@ -1080,7 +1287,6 @@ const UserDashboard = () => {
           </div>
         </div>
       </div>
-
     </AuthWrapper>
   );
 };
