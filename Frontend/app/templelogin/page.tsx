@@ -206,11 +206,10 @@ export default function TempleAdminLogin() {
                 <div className="relative group">
                   {/* Animated Border */}
                   <div
-                    className={`absolute inset-0 rounded-xl transition-all duration-300 ${
-                      focusedField === "email"
+                    className={`absolute inset-0 rounded-xl transition-all duration-300 ${focusedField === "email"
                         ? "bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 p-0.5"
                         : "bg-gray-200 p-0.5"
-                    }`}
+                      }`}
                   >
                     <div className="w-full h-full bg-white rounded-lg" />
                   </div>
@@ -223,11 +222,10 @@ export default function TempleAdminLogin() {
                   {/* Input Container */}
                   <div className="relative flex items-center">
                     <Mail
-                      className={`absolute left-4 w-5 h-5 z-10 transition-colors duration-300 ${
-                        focusedField === "email"
+                      className={`absolute left-4 w-5 h-5 z-10 transition-colors duration-300 ${focusedField === "email"
                           ? "text-orange-600"
                           : "text-gray-400"
-                      }`}
+                        }`}
                     />
                     <input
                       type="email"
@@ -269,11 +267,10 @@ export default function TempleAdminLogin() {
                 <div className="relative group">
                   {/* Animated Border */}
                   <div
-                    className={`absolute inset-0 rounded-xl transition-all duration-300 ${
-                      focusedField === "password"
+                    className={`absolute inset-0 rounded-xl transition-all duration-300 ${focusedField === "password"
                         ? "bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 p-0.5"
                         : "bg-gray-200 p-0.5"
-                    }`}
+                      }`}
                   >
                     <div className="w-full h-full bg-white rounded-lg" />
                   </div>
@@ -286,11 +283,10 @@ export default function TempleAdminLogin() {
                   {/* Input Container */}
                   <div className="relative flex items-center">
                     <Lock
-                      className={`absolute left-4 w-5 h-5 z-10 transition-colors duration-300 ${
-                        focusedField === "password"
+                      className={`absolute left-4 w-5 h-5 z-10 transition-colors duration-300 ${focusedField === "password"
                           ? "text-red-600"
                           : "text-gray-400"
-                      }`}
+                        }`}
                     />
                     <input
                       type={showPassword ? "text" : "password"}
@@ -340,7 +336,7 @@ export default function TempleAdminLogin() {
               {/* Login Button */}
               <button
                 onClick={handleLogin}
-                disabled={isLoading || !email || !password }
+                disabled={isLoading || !email || !password}
                 className="relative w-full group overflow-hidden bg-gradient-to-r from-orange-600 via-red-600 to-yellow-600 text-white py-4 px-6 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl hover:shadow-orange-500/30 focus:outline-none focus:ring-4 focus:ring-orange-300/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98]"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-700 via-red-700 to-yellow-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

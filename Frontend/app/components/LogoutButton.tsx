@@ -79,6 +79,10 @@ export default function LogoutButton({
 
         sessionStorage.clear();
         localStorage.clear();
+        
+        // Clear the cookie (Crucial for Middleware)
+        document.cookie = "accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax;";
+
         toast.success("Logged out successfully");
         setTimeout(() => {
           router.push(redirectTo);

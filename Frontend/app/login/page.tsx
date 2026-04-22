@@ -63,10 +63,10 @@ export default function TempleFundLogin() {
       const result = await response.json();
 
       if (!response.ok) {
-      // Display backend error message if available
-      toast.error(result.message || "Failed to login. Please try again.");
-      return;
-    }
+        // Display backend error message if available
+        toast.error(result.message || "Failed to login. Please try again.");
+        return;
+      }
 
       if (result.success) {
         toast.success("Logged in successfully!");
